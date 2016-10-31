@@ -7,13 +7,11 @@
 * ```MOD_CLUSTER_MCMP_REQUIRE:-all granted```
 * ```MOD_CLUSTER_UDP_MULTICAST_ADDRESS:-224.0.1.105```
 * ```MOD_CLUSTER_UDP_MULTICAST_PORT:-23364```
-
 * ```HTTPD_SERVER_NAME:-${MYIP}```
-** You might also use ```${HOSTNAME}``` instead of ```${MYIP}```, e.g. in DockerCloud or in Rancher. 
+ * You might also use ```${HOSTNAME}``` instead of ```${MYIP}```, e.g. in DockerCloud or in Rancher. 
 * ```HTTPD_LISTEN_PORT:-80```
 * ```HTTPD_LISTEN_ADDRESS:-${MYIP}```
 * ```HTTPD_LOG_LEVEL:-warn```
-
 * ```HTTPD_SSL_LISTEN_PORT:-443```
 * ```HTTPD_SSL_VHOST_NAME:-_default_```
 
