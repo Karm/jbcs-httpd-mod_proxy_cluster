@@ -1,9 +1,10 @@
-FROM fedora:24
+FROM fedora:26
 MAINTAINER Michal Karm Babacek <karm@redhat.com>
 
 # One needs a free registration to get an evaluation zip of JBCS Apache HTTP Server
 # from http://bit.ly/download-jbcs-httpd-now
-ENV JBCS_URL         jbcs-httpd24-httpd-2.4.6-RHEL7-x86_64.zip
+ENV JBCS_ZIP         jbcs-httpd24-httpd-2.4.23-RHEL7-x86_64.zip
+ENV JBCS_PATCH_ZIP   jbcs-httpd24-httpd-2.4.23-SP1-RHEL7-x86_64.zip
 ENV JBCS_HOME        /opt/jbcs-httpd24-2.4
 ENV MOD_CLUSTER_CONF ${JBCS_HOME}/httpd/conf.d/mod_cluster.conf
 ENV SSL_CONF         ${JBCS_HOME}/httpd/conf.d/ssl.conf
@@ -17,11 +18,12 @@ RUN dnf -y update && \
 
 #Download (or copy) and install JBCS, the resulting instasllation is in /opt/jbcs-httpd24-2.4
 
-ADD ${JBCS_URL} /opt/jbcs.zip
+ADD ["${JBCS_ZIP}", "${JBCS_PATCH_ZIP}", "/opt/"]
 
 RUN cd /opt && \
-    unzip /opt/jbcs.zip -d /opt/ && \
-    rm -rf /opt/jbcs.zip && \
+    unzip ${JBCS_ZIP} -d /opt/ && \
+    yes | unzip ${JBCS_PATCH_ZIP} -d /opt/ && \
+    rm -rf ${JBCS_ZIP} && rm -rf ${JBCS_PATCH_ZIP} && \
     cd ${JBCS_HOME}/httpd && \
     ./.postinstall && \
 # We don't need Kerberos, unload
